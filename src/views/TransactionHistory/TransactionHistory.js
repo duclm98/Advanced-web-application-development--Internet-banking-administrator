@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 // core components
+import TextField from '@material-ui/core/TextField'
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
@@ -19,7 +20,7 @@ import { transactionAction } from "../../redux";
 
 const useStyles = makeStyles(styles);
 
-const TransactionHistory = ({ dispatch, transactionHistory }) => {
+const TransactionHistory = ({ dispatch, transactionHistory, sendingMoney, receivingMoney }) => {
   const classes = useStyles();
 
   const [input, setInput] = useState({
@@ -27,8 +28,15 @@ const TransactionHistory = ({ dispatch, transactionHistory }) => {
     to: "",
   });
 
+  const [content, setContent] = useState("");
+
   const handelHistoryTransaction = async () => {
     dispatch(transactionAction.getTransactionHistories(input.from, input.to));
+    setContent(`Danh sách giao dịch từ ${input.from} đến ${input.to}`);
+    setInput({
+      from:"",
+      to:""
+    })
   };
 
   return (
@@ -44,12 +52,14 @@ const TransactionHistory = ({ dispatch, transactionHistory }) => {
                 <GridItem xs={12} sm={12} md={12}>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={4}>
-                      <CustomInput
-                        labelText="Từ ngày"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
+                      <TextField
+                        label="Từ ngày"
                         type="date"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value={input.from}
                         onChange={(event) => {
                           const from = event.target.value;
                           setInput((prev) => ({
@@ -60,12 +70,14 @@ const TransactionHistory = ({ dispatch, transactionHistory }) => {
                       />
                     </GridItem>
                     <GridItem xs={12} sm={12} md={4}>
-                      <CustomInput
-                        labelText="Đến ngày"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
+                      <TextField
+                        label="Đến ngày"
                         type="date"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        value={input.to}
                         onChange={(event) => {
                           const to = event.target.value;
                           setInput((prev) => ({
@@ -87,6 +99,35 @@ const TransactionHistory = ({ dispatch, transactionHistory }) => {
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
+                  <h6>{content}</h6>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <CustomInput
+                        labelText="Tổng số tiền đã chuyển (VNĐ)"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: true,
+                        }}
+                        value={sendingMoney}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                      <CustomInput
+                        labelText="Tổng số tiền đã nhận (VNĐ)"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: true,
+                        }}
+                        value={receivingMoney}
+                      />
+                    </GridItem>
+                  </GridContainer>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
                   <Table rows={transactionHistory || []} />
                 </GridItem>
               </GridContainer>
@@ -101,6 +142,8 @@ const TransactionHistory = ({ dispatch, transactionHistory }) => {
 const mapStateToProps = (state) => {
   return {
     transactionHistory: state.transactionHistory,
+    sendingMoney:state.sendingMoney,
+    receivingMoney:state.receivingMoney,
   };
 };
 

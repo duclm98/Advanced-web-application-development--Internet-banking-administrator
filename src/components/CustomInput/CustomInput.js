@@ -28,7 +28,8 @@ export default function CustomInput(props) {
     type,
     value,
     placeholder,
-    required
+    required,
+    autoFocus
   } = props;
 
   const labelClasses = classNames({
@@ -70,6 +71,7 @@ export default function CustomInput(props) {
         value={value}
         placeholder={placeholder}
         required={required}
+        autoFocus={autoFocus}
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />

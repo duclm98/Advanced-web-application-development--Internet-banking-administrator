@@ -51,7 +51,9 @@ export const transactionAction = {
 
 const initialState = {
     accounts: [],
-    transactionHistory: []
+    transactionHistory: [],
+    sendingMoney: 0,
+    receivingMoney: 0
 };
 
 export default (state = initialState, action) => {
@@ -65,9 +67,12 @@ export default (state = initialState, action) => {
 
     // Reducer cho transaction action
     else if (action.type === 'TRANSACTION_HISTORY') {
+        console.log(action.payload)
         return {
             ...state,
-            transactionHistory: action.payload
+            transactionHistory: action.payload.transactions,
+            sendingMoney: action.payload.sendingMoney,
+            receivingMoney: action.payload.receivingMoney
         }
     }
     return state;
