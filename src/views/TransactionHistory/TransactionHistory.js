@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 // core components
-import TextField from '@material-ui/core/TextField'
+import TextField from "@material-ui/core/TextField";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
@@ -20,7 +20,12 @@ import { transactionAction } from "../../redux";
 
 const useStyles = makeStyles(styles);
 
-const TransactionHistory = ({ dispatch, transactionHistory, sendingMoney, receivingMoney }) => {
+const TransactionHistory = ({
+  dispatch,
+  transactionHistory,
+  sendingMoney,
+  receivingMoney,
+}) => {
   const classes = useStyles();
 
   const [input, setInput] = useState({
@@ -34,9 +39,9 @@ const TransactionHistory = ({ dispatch, transactionHistory, sendingMoney, receiv
     dispatch(transactionAction.getTransactionHistories(input.from, input.to));
     setContent(`Danh sách giao dịch từ ${input.from} đến ${input.to}`);
     setInput({
-      from:"",
-      to:""
-    })
+      from: "",
+      to: "",
+    });
   };
 
   return (
@@ -105,7 +110,7 @@ const TransactionHistory = ({ dispatch, transactionHistory, sendingMoney, receiv
                       <CustomInput
                         labelText="Tổng số tiền đã chuyển (VNĐ)"
                         formControlProps={{
-                          fullWidth: true
+                          fullWidth: true,
                         }}
                         inputProps={{
                           disabled: true,
@@ -117,7 +122,7 @@ const TransactionHistory = ({ dispatch, transactionHistory, sendingMoney, receiv
                       <CustomInput
                         labelText="Tổng số tiền đã nhận (VNĐ)"
                         formControlProps={{
-                          fullWidth: true
+                          fullWidth: true,
                         }}
                         inputProps={{
                           disabled: true,
@@ -142,8 +147,8 @@ const TransactionHistory = ({ dispatch, transactionHistory, sendingMoney, receiv
 const mapStateToProps = (state) => {
   return {
     transactionHistory: state.transactionHistory,
-    sendingMoney:state.sendingMoney,
-    receivingMoney:state.receivingMoney,
+    sendingMoney: state.sendingMoney,
+    receivingMoney: state.receivingMoney,
   };
 };
 
