@@ -18,8 +18,10 @@
 // @material-ui/icons
 import History from "@material-ui/icons/HistoryOutlined";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import LibraryBooksRounded from "@material-ui/icons/LibraryBooksRounded";
 
 import CustomersPage from 'views/Customers/Customers.js';
+import EmployeePage from 'views/Employees/Employees.js';
 import TransactionHistoryPage from 'views/TransactionHistory/TransactionHistory.js';
 
 const dashboardRoutes = [
@@ -28,6 +30,12 @@ const dashboardRoutes = [
     name: "Danh sách khách hàng",
     icon: LibraryBooks,
     component: CustomersPage,
+  },
+  {
+    path: "/employees",
+    name: "Danh sách nhân viên",
+    icon: LibraryBooksRounded,
+    component: EmployeePage,
   },
   {
     path: "/transaction-history",
